@@ -1,0 +1,27 @@
+name: IS Package Deployment
+on:
+  workflow_dispatch:
+    inputs:
+      dev:
+        type: boolean
+        description: Dev Build and Deploy
+      prod:
+        type: boolean
+        description: Prod Build and Deploy
+permissions:
+  contents: read
+
+env:
+  BUILD_ARM_PASSWORD: ${{ secrets.ARMPASS }}
+  BUILD_ARM_USERNAME: ${{ secrets.ARMUSER }}
+  BUILD_NUMBER: ${{ github.run_number }}
+jobs:
+  dev:
+    name: Build execution for Dev
+    if: github.event.inputs.dev == 'true'
+    ruruns-on: [ Biswas-Mac-mini ]
+  prod:
+    name: Build execution for Prod
+    if: github.event.inputs.prod == 'true'
+    ruruns-on: [ Biswas-Mac-mini ]
+  
